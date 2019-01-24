@@ -24,10 +24,13 @@ export class SearchService {
     function _search() {
       return Object.keys(DOCUMENTS)
         .map(id => {
-          const contents = DOCUMENTS[id].contents;
-          return contents.includes(query) ? { path: id, result: true } : {};
+          const doc = DOCUMENTS[id];
+          const contents = doc.contents;
+          return contents.includes(query)
+            ? { path: id, title: doc.title }
+            : null;
         })
-        .filter(val => val.result === true);
+        .filter(val => !!val);
     }
     return new Observable(subscriber => {
       subscriber.next({
