@@ -1,0 +1,87 @@
+{
+  "SideNav": [
+    {
+      "title": "FLEXSCHE CarryOutサーバー",
+      "children": [
+        {
+          "url": "server/setup",
+          "title": "セットアップ方法と動作環境",
+          "tooltip": "セットアップ方法と動作環境"
+        },
+        {
+          "url": "server/pages/config",
+          "title": "サーバー設定 ページ",
+          "tooltip": "サーバー設定 ページ"
+        },
+        {
+          "title": "API",
+          "children": [
+            {
+              "url": "server/api/reschedule",
+              "title": "リスケジュール",
+              "tooltip": "リスケジュール"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "title": "FLEXSCHE CarryOutクライアント",
+      "children": [
+        {
+          "url": "client/setup",
+          "title": "インストール方法と動作環境",
+          "tooltip": "インストール方法と動作環境"
+        },
+        {
+          "title": "使い方",
+          "children": [
+            {
+              "url": "client/custom-layout",
+              "title": "画面レイアウトのカスタマイズ",
+              "tooltip": "画面レイアウトのカスタマイズ"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "title": "FLEXSCHE CarryOutの使用方法",
+      "children": [
+        {
+          "url": "gp/how-to-use",
+          "title": "FLEXSCHE CarryOutの使用方法",
+          "tooltip": "FLEXSCHE CarryOutの使用方法"
+        },
+        {
+          "url": "gp/how-to-use#viewer",
+          "title": "FLEXSCHE Viewerとのデータ連携",
+          "tooltip": "FLEXSCHE Viewerとのデータ連携"
+        }
+      ]
+    },
+
+    {
+      "title": "旧バージョンのドキュメント",
+      "children": [
+        {
+          "url": "client/setup",
+          "title": "インストール方法と動作環境",
+          "tooltip": "インストール方法と動作環境"
+        },
+        {
+          "title": "使い方",
+          "children": [
+            {
+              "url": "client/custom-layout",
+              "title": "画面レイアウトのカスタマイズ",
+              "tooltip": "画面レイアウトのカスタマイズ"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

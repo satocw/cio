@@ -3,9 +3,23 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <button mat-button class="hamburger" (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
+      <mat-icon svgIcon="menu"></mat-icon>
     </button>
-    <cio-search-box #searchBox (onSearch)="doSearch($event)"></cio-search-box>
+    <a class="nav-link home" href="/">
+      <img
+        src="assets/images/logos/flexsche.png"
+        width="40"
+        height="40"
+        title="Home"
+        alt="Home"
+      />
+    </a>
+
+    <cio-search-box
+      class="search-container"
+      #searchBox
+      (onSearch)="doSearch($event)"
+    ></cio-search-box>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -13,8 +27,18 @@
 <!-- <div *ngIf="showSearchResults">{{ searchResults | json }}</div> -->
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav class="sidenav" [opened]="isOpened" mode="side">
-    aaa
+  <mat-sidenav
+    [ngClass]="{ collapsed: !isSideBySide }"
+    #sidenav
+    class="sidenav"
+    [mode]="mode"
+    [opened]="isOpened"
+  >
+    <cio-nav-menu
+      [nodes]="sideNavNodes"
+      [currentNode]="currentNodes?.SideNav"
+      [isWide]="isSideBySide"
+    ></cio-nav-menu>
   </mat-sidenav>
   <mat-sidenav-content>content</mat-sidenav-content>
 </mat-sidenav-container>
