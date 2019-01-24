@@ -23,10 +23,10 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<div>{{ searchResults | async | json }}</div>
+<!-- <div>{{ searchResults | async | json }}</div> -->
 <!-- <div *ngIf="showSearchResults">{{ searchResults | json }}</div> -->
 
-<mat-sidenav-container>
+<mat-sidenav-container class="sidenav-container" role="main">
   <mat-sidenav
     [ngClass]="{ collapsed: !isSideBySide }"
     #sidenav
@@ -40,7 +40,10 @@
       [isWide]="isSideBySide"
     ></cio-nav-menu>
   </mat-sidenav>
-  <mat-sidenav-content>content</mat-sidenav-content>
+
+  <section class="sidenav-content" [id]="pageId" role="content">
+    <cio-doc-viewer [doc]="currentDocument"> </cio-doc-viewer>
+  </section>
 </mat-sidenav-container>
 
 <!-- <footer>

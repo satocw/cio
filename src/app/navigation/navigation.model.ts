@@ -21,3 +21,12 @@ export interface CurrentNode {
   view: string;
   nodes: NavigationNode[];
 }
+
+/**
+ * A map of current nodes by view.
+ * This is needed because some urls map to nodes in more than one view.
+ * If a view does not contain a node that matches the current url then the value will be undefined.
+ */
+export interface CurrentNodes {
+  [view: string]: CurrentNode;
+}

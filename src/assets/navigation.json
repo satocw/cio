@@ -67,19 +67,14 @@
       "title": "旧バージョンのドキュメント",
       "children": [
         {
-          "url": "client/setup",
-          "title": "インストール方法と動作環境",
-          "tooltip": "インストール方法と動作環境"
+          "url": "v2",
+          "title": "バージョン２",
+          "tooltip": "バージョン２のドキュメント"
         },
         {
-          "title": "使い方",
-          "children": [
-            {
-              "url": "client/custom-layout",
-              "title": "画面レイアウトのカスタマイズ",
-              "tooltip": "画面レイアウトのカスタマイズ"
-            }
-          ]
+          "url": "gp/upgrade-from-v2",
+          "title": "バージョン２からバージョン３への移行方法",
+          "tooltip": "バージョン２からバージョン３への移行方法"
         }
       ]
     }

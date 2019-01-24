@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy
+} from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -11,7 +17,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from 'app/app.component';
 import { CustomIconRegistry, SVG_ICONS } from 'app/shared/custom-icon-registry';
+import { DocViewerComponent } from 'app/layout/doc-viewer/doc-viewer.component';
+import { Logger } from 'app/shared/logger.service';
+import { LocationService } from 'app/shared/location.service';
 import { NavigationService } from 'app/navigation/navigation.service';
+import { DocumentService } from 'app/documents/document.service';
 import { SearchService } from 'app/search/search.service';
 import { SearchBoxComponent } from 'app/search/search-box/search-box.component';
 import { NavMenuComponent } from 'app/layout/nav-menu/nav-menu.component';
@@ -68,6 +78,7 @@ export const svgIconProviders = [
 @NgModule({
   declarations: [
     AppComponent,
+    DocViewerComponent,
     NavMenuComponent,
     NavItemComponent,
     SearchBoxComponent
@@ -83,6 +94,11 @@ export const svgIconProviders = [
     MatToolbarModule
   ],
   providers: [
+    DocumentService,
+    Logger,
+    Location,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    LocationService,
     { provide: MatIconRegistry, useClass: CustomIconRegistry },
     NavigationService,
     SearchService,
