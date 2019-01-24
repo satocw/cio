@@ -3,9 +3,6 @@ import { Observable, of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { SearchResults } from 'app/search/interfaces';
 
-import server_setup from '_doc/server/setup';
-import server_config from '_doc/server/pages/config';
-
 import { DOCUMENTS } from 'app/shared/docs';
 
 @Injectable()
@@ -25,9 +22,12 @@ export class SearchService {
   // grep型の単純な検索
   private grepSearch(query: string): Observable<SearchResults> {
     function _search() {
-      // return DOCUMENTS.map((doc, idx) =>
-      //   doc.includes(query) ? { path: idx, result: true } : {}
-      // );
+      return Object.keys(DOCUMENTS)
+        .map(id => {
+          const contents = DOCUMENTS[id].contents;
+          return contents.includes(query) ? { path: id, result: true } : {};
+        })
+        .filter(val => val.result === true);
     }
     return new Observable(subscriber => {
       subscriber.next({

@@ -23,8 +23,13 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<!-- <div>{{ searchResults | async | json }}</div> -->
-<!-- <div *ngIf="showSearchResults">{{ searchResults | json }}</div> -->
+<!-- <div
+  id="search-results"
+  *ngIf="showSearchResults"
+  style="position:fixed;width:100%;z-index:999;background-color:white;"
+>
+  {{ searchResults | async | json }}
+</div> -->
 
 <mat-sidenav-container class="sidenav-container" role="main">
   <mat-sidenav
@@ -42,6 +47,10 @@
   </mat-sidenav>
 
   <section class="sidenav-content" [id]="pageId" role="content">
+    <div id="search-results" *ngIf="showSearchResults">
+      {{ searchResults | async | json }}
+    </div>
+
     <cio-doc-viewer
       [doc]="currentDocument"
       (docReady)="onDocReady()"
