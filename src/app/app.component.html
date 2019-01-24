@@ -2,6 +2,25 @@
 
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <cio-search-box #searchBox></cio-search-box>
+    <button mat-button class="hamburger" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <cio-search-box #searchBox (onSearch)="doSearch($event)"></cio-search-box>
   </mat-toolbar-row>
 </mat-toolbar>
+
+<div>{{ searchResults | async | json }}</div>
+<!-- <div *ngIf="showSearchResults">{{ searchResults | json }}</div> -->
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav class="sidenav" [opened]="isOpened" mode="side">
+    aaa
+  </mat-sidenav>
+  <mat-sidenav-content>content</mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- <footer>
+  <mat-toolbar color="primary">
+    <p>Copyright © FLEXSCHE.Co.,Ltd. All right reserved.</p>
+  </mat-toolbar>
+</footer> -->

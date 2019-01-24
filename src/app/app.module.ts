@@ -8,8 +8,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { AppComponent } from './app.component';
-import { SearchBoxComponent } from './search/search-box/search-box.component';
+import { AppComponent } from 'app/app.component';
+import { SearchService } from 'app/search/search.service';
+import { SearchBoxComponent } from 'app/search/search-box/search-box.component';
 
 @NgModule({
   declarations: [AppComponent, SearchBoxComponent],
@@ -22,7 +23,7 @@ import { SearchBoxComponent } from './search/search-box/search-box.component';
     MatSidenavModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
