@@ -42,7 +42,14 @@
   </mat-sidenav>
 
   <section class="sidenav-content" [id]="pageId" role="content">
-    <cio-doc-viewer [doc]="currentDocument"> </cio-doc-viewer>
+    <cio-doc-viewer
+      [doc]="currentDocument"
+      (docReady)="onDocReady()"
+      (docRemoved)="onDocRemoved()"
+      (docInserted)="onDocInserted()"
+      (docRendered)="onDocRendered()"
+    >
+    </cio-doc-viewer>
   </section>
 </mat-sidenav-container>
 

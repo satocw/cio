@@ -1,0 +1,4 @@
+.no-animations cio-doc-viewer > * {
+  // Disable view transition animations.
+  transition: none !important;
+}

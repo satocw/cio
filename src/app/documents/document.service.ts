@@ -6,6 +6,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { DocumentContents } from './document-contents';
 export { DocumentContents } from './document-contents';
+import { DOCUMENTS } from 'app/shared/docs';
 
 import { LocationService } from 'app/shared/location.service';
 import { Logger } from 'app/shared/logger.service';
@@ -38,8 +39,15 @@ export class DocumentService {
   ) {
     // Whenever the URL changes we try to get the appropriate doc
     this.currentDocument = location.currentPath.pipe(
-      switchMap(path => this.getDocument(path))
+      switchMap(path => this.getDocumentLocal(path))
+      //   switchMap(path => this.getDocument(path))
     );
+  }
+
+  private getDocumentLocal(url: string) {
+    const id = url || 'index';
+    this.logger.log('getting document local', id);
+    return of(DOCUMENTS[id]);
   }
 
   private getDocument(url: string) {

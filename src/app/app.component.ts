@@ -12,7 +12,8 @@ import { SearchBoxComponent } from 'app/search/search-box/search-box.component';
 import { SearchResults } from 'app/search/interfaces';
 import { SearchService } from 'app/search/search.service';
 
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'cio-shell',
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
    */
   folderId: string;
 
-  isSideBySide = false;
+  isSideBySide = true;
   private isSideNavDoc = false;
 
   sideNavNodes: NavigationNode[];
@@ -74,7 +75,30 @@ export class AppComponent implements OnInit {
     this.navigationService.navigationViews.subscribe(views => {
       this.sideNavNodes = views['SideNav'] || [];
     });
+
+    // Generally, we want to delay updating the shell (e.g. host classes, sidenav state) for the new
+    // document, until after the leaving document has been removed (to avoid having the styles for
+    // the new document applied prematurely).
+    // For the first document, though, (when we know there is no previous document), we want to
+    // ensure the styles are applied as soon as possible to avoid flicker.
+    combineLatest(
+      this.documentService.currentDocument // ...needed to determine host classes
+      // this.navigationService.currentNodes // ...needed to determine `sidenav` state
+    )
+      .pipe(first())
+      .subscribe(() => this.updateShell());
   }
+
+  onDocReady() {}
+  onDocRemoved() {}
+  onDocInserted() {
+    // Update the shell (host classes, sidenav state) to match the new document.
+    // This may be called as a result of actions initiated by view updates.
+    // In order to avoid errors (e.g. `ExpressionChangedAfterItHasBeenChecked`), updating the view
+    // (e.g. sidenav, host classes) needs to happen asynchronously.
+    setTimeout(() => this.updateShell());
+  }
+  onDocRendered() {}
 
   @HostListener('click', [
     '$event.target',
@@ -117,6 +141,26 @@ export class AppComponent implements OnInit {
 
     // Allow the click to pass through
     return true;
+  }
+
+  setPageId(id: string) {
+    // Special case the home page
+    this.pageId = id === 'index' ? 'home' : id.replace('/', '-');
+  }
+
+  setFolderId(id: string) {
+    // Special case the home page
+    this.folderId = id === 'index' ? 'home' : id.split('/', 1)[0];
+  }
+
+  updateShell() {
+    // Update the SideNav state (if necessary).
+    // this.updateSideNav();
+
+    // Update the host classes.
+    this.setPageId(this.currentDocument.id);
+    this.setFolderId(this.currentDocument.id);
+    // this.updateHostClasses();
   }
 
   // Search related methods and handlers

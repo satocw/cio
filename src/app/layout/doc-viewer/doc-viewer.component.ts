@@ -77,10 +77,12 @@ export class DocViewerComponent implements OnDestroy {
       this.currViewContainer = this.hostElement
         .firstElementChild as HTMLElement;
     }
-    this.docContents$.pipe(
-      switchMap(newDoc => this.render(newDoc)),
-      takeUntil(this.onDestroy$)
-    );
+    this.docContents$
+      .pipe(
+        switchMap(newDoc => this.render(newDoc)),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy() {
@@ -162,7 +164,90 @@ export class DocViewerComponent implements OnDestroy {
    * the element has been attached to the DOM.
    */
   protected swapViews(onInsertedCb = () => {}): Observable<void> {
-    const done$ = this.void$;
-    return done$;
+    const raf$ = new Observable<void>(subscriber => {
+      const rafId = requestAnimationFrame(() => {
+        subscriber.next();
+        subscriber.complete();
+      });
+      return () => cancelAnimationFrame(rafId);
+    });
+
+    // Get the actual transition duration (taking global styles into account).
+    // According to the [CSSOM spec](https://drafts.csswg.org/cssom/#serializing-css-values),
+    // `time` values should be returned in seconds.
+    const getActualDuration = (elem: HTMLElement) => {
+      const cssValue = getComputedStyle(elem).transitionDuration || '';
+      const seconds = Number(cssValue.replace(/s$/, ''));
+      return 1000 * seconds;
+    };
+    const animateProp = (
+      elem: HTMLElement,
+      prop: keyof CSSStyleDeclaration,
+      from: string,
+      to: string,
+      duration = 200
+    ) => {
+      const animationsDisabled =
+        !DocViewerComponent.animationsEnabled ||
+        this.hostElement.classList.contains(NO_ANIMATIONS);
+      if (prop === 'length' || prop === 'parentRule') {
+        // We cannot animate length or parentRule properties because they are readonly
+        return this.void$;
+      }
+      elem.style.transition = '';
+      return animationsDisabled
+        ? this.void$.pipe(tap(() => (elem.style[prop] = to)))
+        : this.void$.pipe(
+            // In order to ensure that the `from` value will be applied immediately (i.e.
+            // without transition) and that the `to` value will be affected by the
+            // `transition` style, we need to ensure an animation frame has passed between
+            // setting each style.
+            switchMap(() => raf$),
+            tap(() => (elem.style[prop] = from)),
+            switchMap(() => raf$),
+            tap(
+              () => (elem.style.transition = `all ${duration}ms ease-in-out`)
+            ),
+            switchMap(() => raf$),
+            tap(() => ((elem.style as any)[prop] = to)),
+            switchMap(() => timer(getActualDuration(elem))),
+            switchMap(() => this.void$)
+          );
+    };
+
+    const animateLeave = (elem: HTMLElement) =>
+      animateProp(elem, 'opacity', '1', '0.1');
+    const animateEnter = (elem: HTMLElement) =>
+      animateProp(elem, 'opacity', '0.1', '1');
+
+    let done$ = this.void$;
+
+    if (this.currViewContainer.parentElement) {
+      done$ = done$.pipe(
+        // Remove the current view from the viewer.
+        switchMap(() => animateLeave(this.currViewContainer)),
+        tap(() =>
+          this.currViewContainer.parentElement!.removeChild(
+            this.currViewContainer
+          )
+        ),
+        tap(() => this.docRemoved.emit())
+      );
+    }
+
+    return done$.pipe(
+      // Insert the next view into the viewer.
+      tap(() => this.hostElement.appendChild(this.nextViewContainer)),
+      tap(() => onInsertedCb()),
+      tap(() => this.docInserted.emit()),
+      switchMap(() => animateEnter(this.nextViewContainer)),
+      // Update the view references and clean up unused nodes.
+      tap(() => {
+        const prevViewContainer = this.currViewContainer;
+        this.currViewContainer = this.nextViewContainer;
+        this.nextViewContainer = prevViewContainer;
+        this.nextViewContainer.innerHTML = ''; // Empty to release memory.
+      })
+    );
   }
 }
