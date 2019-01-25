@@ -20,6 +20,11 @@
               "url": "server/api/reschedule",
               "title": "リスケジュール",
               "tooltip": "リスケジュール"
+            },
+            {
+              "url": "server/api/reset",
+              "title": "リセット",
+              "tooltip": "リセット"
             }
           ]
         }
@@ -56,6 +61,11 @@
           "tooltip": "FLEXSCHE CarryOutの使用方法"
         },
         {
+          "url": "gp/io-gp",
+          "title": "FLEXSCHE GPとのデータ連携",
+          "tooltip": "FLEXSCHE GPとのデータ連携"
+        },
+        {
           "url": "gp/how-to-use#viewer",
           "title": "FLEXSCHE Viewerとのデータ連携",
           "tooltip": "FLEXSCHE Viewerとのデータ連携"
@@ -72,7 +82,7 @@
           "tooltip": "バージョン２のドキュメント"
         },
         {
-          "url": "gp/upgrade-from-v2",
+          "url": "upgrade-from-v2",
           "title": "バージョン２からバージョン３への移行方法",
           "tooltip": "バージョン２からバージョン３への移行方法"
         }
