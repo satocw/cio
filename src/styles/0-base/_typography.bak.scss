@@ -8,50 +8,28 @@ body {
 }
 
 h1 {
-  // font-size: 24px;
-  // font-weight: 500;
-  line-height: 1.5;
-  margin: 8px 0 30px;
-  padding: 0 0 18px;
-  border-bottom: 4px solid #e6e6e6;
-  color: #333;
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 8px 0px;
+
   @media screen and (max-width: 600px) {
     margin-top: 0;
   }
 }
 
 h2 {
-  margin: 0 0 20px;
-  padding: 7px 15px 7px 0;
-  background: #ddf;
-  color: #333;
-  line-height: 1.5;
-
-  &::before {
-    content: '';
-    border-left: 5px solid #12235a;
-    padding: 0 0 0 12px;
-  }
+  font-size: 22px;
+  font-weight: 500;
+  margin: 32px 0px 24px;
+  clear: both;
 }
 
 h3 {
-  // font-size: 18px;
-  // font-size: 1.8rem;
-  margin: 24px 0;
-  padding: 0;
-  color: #333;
-  border-bottom: solid 2px #ddd;
-  position: relative;
+  font-size: 20px;
+  font-weight: 400;
+  margin: 24px 0px;
   clear: both;
-
-  &::after {
-    position: absolute;
-    content: ' ';
-    display: block;
-    border-bottom: solid 2px #12235a;
-    bottom: -2px;
-    width: 15%;
-  }
 }
 
 h4 {
