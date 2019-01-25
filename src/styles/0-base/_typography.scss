@@ -189,3 +189,16 @@ code {
     color: $mediumgray;
   }
 }
+
+// SN追加
+pre {
+  border: solid 0.1px;
+  border-color: #ccc;
+  background-color: #eef5f5;
+  margin-left: 20px;
+}
+
+code {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: small;
+}
