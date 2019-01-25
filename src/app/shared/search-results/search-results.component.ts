@@ -49,7 +49,7 @@ export class SearchResultsComponent implements OnChanges {
     if (!search) {
       return [];
     }
-    this.notFoundMessage = 'No results found.';
+    this.notFoundMessage = '見つかりませんでした。';
     const searchAreaMap: { [key: string]: SearchResult[] } = {};
     search.results.forEach(result => {
       if (!result.title) {
