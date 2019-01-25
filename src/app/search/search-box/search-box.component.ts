@@ -17,6 +17,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
       aria-label="search"
       placeholder="検索"
       (input)="doSearch()"
+      (focus)="doFocus()"
       (keyup)="doSearch()"
       (click)="doSearch()"
     />
@@ -31,9 +32,14 @@ export class SearchBoxComponent {
     distinctUntilChanged(),
     debounceTime(this.searchDebounce)
   );
+  @Output() onFocus = new EventEmitter<string>();
 
   doSearch() {
     this.searchSubject.next(this.query);
+  }
+
+  doFocus() {
+    this.onFocus.emit(this.query);
   }
 
   private get query() {

@@ -1,0 +1,41 @@
+<div class="search-results">
+  <div *ngIf="searchAreas.length; then searchResults; else notFound"></div>
+</div>
+
+<ng-template #searchResults>
+  <h2 class="visually-hidden">検索結果</h2>
+  <div class="search-area" *ngFor="let area of searchAreas">
+    <!-- {{ area | json }} -->
+    <h3>
+      {{ area.name }} ({{ area.pages.length + area.priorityPages.length }})
+    </h3>
+    <ul class="priority-pages">
+      <li class="search-page" *ngFor="let page of area.priorityPages">
+        <a
+          class="search-result-item"
+          href="{{ page.path }}"
+          (click)="onResultSelected(page, $event)"
+        >
+          {{ page.title }}
+        </a>
+        <div>{{ page.keywords }}</div>
+      </li>
+    </ul>
+    <ul>
+      <li class="search-page" *ngFor="let page of area.pages">
+        <a
+          class="search-result-item"
+          href="{{ page.path }}"
+          (click)="onResultSelected(page, $event)"
+        >
+          {{ page.title }}
+        </a>
+        <div>{{ page.keywords }}</div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #notFound>
+  <p>{{ notFoundMessage }}</p>
+</ng-template>

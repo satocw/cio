@@ -19,6 +19,7 @@
       class="search-container"
       #searchBox
       (onSearch)="doSearch($event)"
+      (onFocus)="doSearch($event)"
     ></cio-search-box>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -47,9 +48,12 @@
   </mat-sidenav>
 
   <section class="sidenav-content" [id]="pageId" role="content">
-    <div id="search-results" *ngIf="showSearchResults">
-      {{ searchResults | async | json }}
-    </div>
+    <cio-search-results
+      #searchResultsView
+      *ngIf="showSearchResults"
+      [searchResults]="searchResults | async"
+      (resultSelected)="hideSearchResults()"
+    ></cio-search-results>
 
     <cio-doc-viewer
       [doc]="currentDocument"

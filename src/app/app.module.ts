@@ -27,6 +27,8 @@ import { SearchBoxComponent } from 'app/search/search-box/search-box.component';
 import { NavMenuComponent } from 'app/layout/nav-menu/nav-menu.component';
 import { NavItemComponent } from 'app/layout/nav-item/nav-item.component';
 
+import { SharedModule } from 'app/shared/shared.module';
+
 // These are the hardcoded inline svg sources to be used by the `<mat-icon>` component
 export const svgIconProviders = [
   {
@@ -91,7 +93,8 @@ export const svgIconProviders = [
     MatIconModule,
     MatProgressBarModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    SharedModule
   ],
   providers: [
     DocumentService,

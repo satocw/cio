@@ -165,6 +165,10 @@ export class AppComponent implements OnInit {
 
   // Search related methods and handlers
 
+  hideSearchResults() {
+    this.showSearchResults = false;
+  }
+
   doSearch(query: string) {
     this.searchResults = this.searchService.search(query);
     this.showSearchResults = !!query;
