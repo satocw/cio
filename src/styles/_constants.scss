@@ -26,6 +26,39 @@ $black: #0a1014;
 $orange: #ff9800;
 $anti-pattern: $brightred;
 
+// SN追加
+$cio-company: (
+  50: #e4e8f1,
+  100: #bdc6dd,
+  200: #91a0c6,
+  300: #6479af,
+  400: #435d9e,
+  500: #22408d,
+  600: #1e3a85,
+  700: #19327a,
+  800: #142a70,
+  900: #0c1c5d,
+  A100: #91a3ff,
+  A200: #5e79ff,
+  A400: #2b4eff,
+  A700: #1239ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
 // API & CODE COLORS
 $amber-700: #ffa000;
 $blue-400: #42a5f5;
@@ -51,11 +84,9 @@ $pink-600: #d81b60;
 $purple-600: #8e24aa;
 $teal-500: #009688;
 $lightgrey: #f5f6f7;
-
 // GRADIENTS
 $bluegradient: linear-gradient(145deg, #0d47a1, #42a5f5);
 $redgradient: linear-gradient(145deg, $darkred, $brightred);
-
 // API LABEL COLOR AND SYMBOLS MAP
 $api-symbols: (
   all: (
@@ -111,7 +142,6 @@ $api-symbols: (
     background: $purple-600
   )
 );
-
 // OTHER
 $small-breakpoint-width: 840px;
 $phone-breakpoint: 480px;
