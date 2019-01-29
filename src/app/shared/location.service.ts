@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { BASE_URL } from 'app/app.module';
+
 @Injectable()
 export class LocationService {
   private readonly urlParser = document.createElement('a');
@@ -88,7 +90,18 @@ export class LocationService {
     }
 
     const { pathname, search, hash } = anchor;
-    const relativeUrl = pathname + search + hash;
+
+    function toRelativePath(abs: string) {
+      const idx = abs.indexOf(BASE_URL);
+      if (idx > -1) {
+        return abs.slice(idx + BASE_URL.length);
+      } else {
+        return abs;
+      }
+    }
+    const _pathname = toRelativePath(pathname);
+
+    const relativeUrl = _pathname + search + hash;
     this.urlParser.href = relativeUrl;
 
     // don't navigate if external link or has extension

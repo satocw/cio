@@ -1,0 +1,6 @@
+// 本番用ビルド
+app.module.tsのBASE_URLを書き換え
+ng build --prod --base-href /application/CarryOut/
+
+// テスト用ビルド
+ng build --base-href /application/CarryOut/_test/

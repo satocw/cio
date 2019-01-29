@@ -29,6 +29,8 @@ import { NavItemComponent } from 'app/layout/nav-item/nav-item.component';
 
 import { SharedModule } from 'app/shared/shared.module';
 
+export const BASE_URL = 'application/CarryOut/_test/';
+
 // These are the hardcoded inline svg sources to be used by the `<mat-icon>` component
 export const svgIconProviders = [
   {
