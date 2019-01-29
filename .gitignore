@@ -44,4 +44,7 @@ testem.log
 Thumbs.db
 
 # private
+src/assets/images/*
 src/_doc/*
+BUILD.txt
+ROUTING.txt

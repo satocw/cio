@@ -9,6 +9,7 @@ import s_api_reset from '_doc/server/api/reset';
 
 // クライアント
 import c_setup from '_doc/client/setup';
+import c_setup_windows from '_doc/client/setup-windows';
 import c_custom_layout from '_doc/client/custom-layout';
 
 // GP
@@ -33,6 +34,7 @@ export const DOCUMENTS: {
 
   // クライアント
   'client/setup': { ...c_setup, title: 'インストール方法と動作環境' },
+  'client/setup-windows': { ...c_setup_windows, title: 'Windows版のインストール' },
   'client/custom-layout': { ...c_custom_layout, title: '画面レイアウトのカスタマイズ' },
 
   // GP
